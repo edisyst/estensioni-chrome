@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Form Debugger",
+  "version": "1.0",
+  "description": "Esegui rapidamente operazioni di debug sui form HTML",
+  "permissions": ["scripting", "activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  }
+}

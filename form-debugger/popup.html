@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Debugger</title>
+    <style>
+        body { font-family: sans-serif; padding: 10px; width: 250px; }
+        button { display: block; width: 100%; margin-bottom: 8px; }
+        label { display: block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<button id="show-passwords">Mostra password</button>
+<button id="disable-validation">Disabilita validazione HTML5</button>
+<button id="fill-inputs">Compila con valori fittizi</button>
+<button id="make-editable">Rendi tutti i campi editabili</button>
+<button id="reset-forms">Reset form</button>
+
+<label>
+    <input type="checkbox" id="log-values">
+    Logga valori form in console
+</label>
+</body>
+<script src="popup.js"></script>
+</html>
