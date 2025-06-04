@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form di Test Completo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        fieldset {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        legend {
+            padding: 0 5px;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .note {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Form di Iscrizione di Test</h1>
+<p>Questa pagina contiene un form con tutti i tipi di campi per testing.</p>
+
+<form id="testForm" action="#" method="post">
+    <!-- Testo semplice -->
+    <div class="form-group">
+        <label for="nome">Nome (required)</label>
+        <input type="text" id="nome" name="nome" required>
+    </div>
+
+    <div class="form-group">
+        <label for="cognome">Cognome (disabled)</label>
+        <input type="text" id="cognome" name="cognome" disabled value="Disabilitato">
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+        <label for="email">Email (required)</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+        <label for="password1">Password</label>
+        <input type="password" id="password1" name="password1">
+    </div>
+
+    <div class="form-group">
+        <label for="password2">Conferma Password (disabled)</label>
+        <input type="password" id="password2" name="password2" disabled>
+    </div>
+
+    <!-- Numero -->
+    <div class="form-group">
+        <label for="eta">Età</label>
+        <input type="number" id="eta" name="eta" min="18" max="99">
+    </div>
+
+    <!-- Data -->
+    <div class="form-group">
+        <label for="data_nascita">Data di nascita</label>
+        <input type="date" id="data_nascita" name="data_nascita">
+    </div>
+
+    <!-- Checkbox -->
+    <div class="form-group">
+        <label>
+            <input type="checkbox" id="newsletter" name="newsletter" checked>
+            Desidero ricevere la newsletter
+        </label>
+    </div>
+
+    <!-- Radio buttons -->
+    <fieldset>
+        <legend>Sesso</legend>
+        <label>
+            <input type="radio" name="sesso" value="maschio" checked>
+            Maschio
+        </label>
+        <label>
+            <input type="radio" name="sesso" value="femmina">
+            Femmina
+        </label>
+        <label>
+            <input type="radio" name="sesso" value="altro" disabled>
+            Altro (disabled)
+        </label>
+    </fieldset>
+
+    <!-- Select -->
+    <div class="form-group">
+        <label for="paese">Paese</label>
+        <select id="paese" name="paese">
+            <option value="">Seleziona un paese</option>
+            <option value="it">Italia</option>
+            <option value="fr">Francia</option>
+            <option value="de">Germania</option>
+            <option value="es">Spagna</option>
+            <option value="uk" disabled>Regno Unito (disabled)</option>
+        </select>
+    </div>
+
+    <!-- Textarea -->
+    <div class="form-group">
+        <label for="messaggio">Messaggio</label>
+        <textarea id="messaggio" name="messaggio" rows="4"></textarea>
+    </div>
+
+    <!-- File upload -->
+    <div class="form-group">
+        <label for="foto">Carica la tua foto</label>
+        <input type="file" id="foto" name="foto">
+    </div>
+
+    <!-- Range -->
+    <div class="form-group">
+        <label for="soddisfazione">Livello di soddisfazione (0-10)</label>
+        <input type="range" id="soddisfazione" name="soddisfazione" min="0" max="10" step="1" value="5">
+    </div>
+
+    <!-- Color -->
+    <div class="form-group">
+        <label for="colore_preferito">Colore preferito</label>
+        <input type="color" id="colore_preferito" name="colore_preferito" value="#ff0000">
+    </div>
+
+    <!-- Hidden -->
+    <input type="hidden" id="id_sessione" name="id_sessione" value="abc123">
+
+    <!-- Bottoni -->
+    <div class="form-group">
+        <button type="submit">Invia</button>
+        <button type="reset">Resetta</button>
+        <button type="button" id="testButton">Bottone di test</button>
+        <button type="submit" disabled>Bottone disabilitato</button>
+    </div>
+</form>
+
+<script>
+    // Qui puoi inserire i tuoi script di test
+    document.getElementById('testButton').addEventListener('click', function() {
+        alert('Bottone di test cliccato!');
+    });
+</script>
+</body>
+</html>
