@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form di Test Completo</title>
+    <title>Form di Test Completo - Dark Mode</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #121212;
+            color: #e0e0e0;
         }
         .form-group {
             margin-bottom: 15px;
@@ -18,35 +20,75 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            color: #bb86fc;
         }
         input, select, textarea {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            color: #e0e0e0;
+            border-radius: 4px;
+        }
+        input:disabled, select:disabled, textarea:disabled {
+            background-color: #2d2d2d;
+            color: #666;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #bb86fc;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.3);
         }
         fieldset {
-            border: 1px solid #ddd;
+            border: 1px solid #333;
             padding: 10px;
             margin-bottom: 15px;
+            border-radius: 4px;
         }
         legend {
             padding: 0 5px;
             font-weight: bold;
+            color: #bb86fc;
         }
         button {
             padding: 10px 15px;
-            background-color: #4CAF50;
+            background-color: #3700b3;
             color: white;
             border: none;
             cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #6200ee;
+        }
+        button:disabled {
+            background-color: #1e1e1e;
+            color: #666;
+            cursor: not-allowed;
         }
         .note {
             font-size: 0.8em;
-            color: #666;
+            color: #999;
             margin-top: 5px;
+        }
+        h1, p {
+            color: #ffffff;
+        }
+        /* Stili specifici per tipi di input */
+        input[type="checkbox"], input[type="radio"] {
+            width: auto;
+            margin-right: 8px;
+            accent-color: #bb86fc;
+        }
+        input[type="color"] {
+            height: 40px;
+            padding: 2px;
+        }
+        input[type="range"] {
+            accent-color: #bb86fc;
         }
     </style>
 </head>
