@@ -10,20 +10,27 @@ pipeline {
         stage('Checkout') {
             steps { checkout scm }
         }
+        
 
         stage('Prep (Groovy)') {
             steps {
                 script {
-                    // Funzione Groovy locale (closure) con default arg
-                    def slug = { String s = env.APP_NAME -> s.replaceAll('[^a-z0-9-]', '-') }
+                    // Funzione Groovy locale che riceve un nome in input
+                    def slug = { String s -> s.toLowerCase().replaceAll('[^a-z0-9-]', '-') }
+        
+                    // fallback locale se env.APP_NAME è vuoto
+                    def app = env.APP_NAME ?: 'estensioni-chrome'
+        
                     // Ottengo lo short SHA dal repo
                     def gitSha = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+        
                     // Costruisco un nome pacchetto leggibile
-                    env.PACKAGE_NAME = "${slug()}.${gitSha}.tar.gz"
+                    env.PACKAGE_NAME = "${slug(app)}.${gitSha}.tar.gz"
                     echo "PACKAGE_NAME = ${env.PACKAGE_NAME}"
                 }
             }
         }
+
 
         stage('Package') {
             when { expression { fileExists('manifest.json') } }
