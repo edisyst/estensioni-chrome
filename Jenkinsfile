@@ -1,7 +1,7 @@
 pipeline {
     agent any // usa l'agent di default (il container Jenkins)
 
-
+    options { timestamps() }
 
     stages {
         stage('Checkout') {
