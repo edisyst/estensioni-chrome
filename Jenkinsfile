@@ -31,6 +31,15 @@ pipeline {
             steps { checkout scm }
         }
 
+        stage('Custom Logic') {
+            steps {
+                script {
+                    def slugify = { str -> str.toLowerCase().replaceAll('[^a-z0-9-]', '-') }
+                    echo "Slug di APP_NAME = ${slugify(params.APP_NAME)}"
+                }
+            }
+        }
+
         stage('Package') {
             when {
                 expression { return params.DO_PACKAGE }
