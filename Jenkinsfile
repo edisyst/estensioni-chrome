@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     // Funzione Groovy locale (closure) con default arg
-                    def slug = { String s = env.APP_NAME -> s.toLowerCase().replaceAll('[^a-z0-9-]', '-') }
+                    def slug = { String s = env.APP_NAME -> s.replaceAll('[^a-z0-9-]', '-') }
                     // Ottengo lo short SHA dal repo
                     def gitSha = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
                     // Costruisco un nome pacchetto leggibile
