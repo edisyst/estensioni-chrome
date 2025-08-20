@@ -33,7 +33,7 @@ pipeline {
 
 
         stage('Package') {
-            when { expression { fileExists('manifest.json') } }
+            when { expression { fileExists('Jenkinsfile') } }
             steps {
                 sh 'tar --exclude=${PACKAGE_NAME} -czf ${PACKAGE_NAME} .'
             }
