@@ -2,7 +2,7 @@ pipeline {
     agent any // usa l'agent di default (il container Jenkins)
 
     options {
-        timestamps() // timestamp nei log
+       // timestamps() // timestamp nei log
     }
 
     stages {
