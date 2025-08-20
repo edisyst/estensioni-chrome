@@ -33,7 +33,7 @@ pipeline {
 
 
         stage('Package') {
-            when { expression { fileExists('Jenkinsfile') } }
+            when { expression { fileExists('manifest') } }
             steps {
                 sh 'tar --exclude=${PACKAGE_NAME} -czf ${PACKAGE_NAME} .'
             }
@@ -45,6 +45,13 @@ pipeline {
                 sh 'ls -lh ${PACKAGE_NAME}'
             }
         }
+        
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
+            }
+        }
+
     }
 
     post {
