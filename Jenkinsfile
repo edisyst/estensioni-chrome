@@ -1,33 +1,18 @@
-pipeline {
-    agent any
-
-    parameters {
-        string(name: 'APP_NAME', defaultValue: 'estensioni-chrome', description: 'Nome del pacchetto')
-        booleanParam(name: 'DO_PACKAGE', defaultValue: true, description: 'Creare il pacchetto?')
-    }
-
-    stages {
-        stage('Checkout') {
-            steps { checkout scm }
-        }
-
-        stage('Package') {
-            when {
-                expression { return params.DO_PACKAGE }
-            }
+stage('Quality Checks') {
+    parallel {
+        stage('Lint') {
             steps {
-                script {
-                    def gitSha = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-                    env.PACKAGE_NAME = "${params.APP_NAME}.${gitSha}.tar.gz"
-                    sh "tar --exclude=${env.PACKAGE_NAME} -czf ${env.PACKAGE_NAME} ."
-                }
+                sh 'echo "Simulazione lint"'
             }
         }
-
-        stage('Archive') {
-            when { expression { fileExists(env.PACKAGE_NAME ?: '') } }
+        stage('Unit Tests') {
             steps {
-                archiveArtifacts artifacts: "${env.PACKAGE_NAME}"
+                sh 'echo "Simulazione test unitari"'
+            }
+        }
+        stage('Security Scan') {
+            steps {
+                sh 'echo "Simulazione scan sicurezza"'
             }
         }
     }
