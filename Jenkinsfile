@@ -1,47 +1,48 @@
 pipeline {
-    agent any // usa l'agent di default (il container Jenkins)
+    agent any
 
-    options { timestamps() }
+    environment {
+        // Variabile usata in più punti (GString => ${...})
+        APP_NAME = 'estensioni-chrome'
+    }
 
     stages {
         stage('Checkout') {
-            steps {
-                // Clona il repo configurato nel job
-                checkout scm
-            }
+            steps { checkout scm }
         }
 
-        stage('Info') {
+        stage('Prep (Groovy)') {
             steps {
-                echo "Workspace: ${pwd()}"
-                // Mini pillola Groovy: prendo l'output di un comando e lo tratto come lista
                 script {
-                    def out = sh(script: "ls -1", returnStdout: true).trim()
-                    def files = out ? out.split("\\n") : []
-                    echo "File trovati (${files.size()}): ${files.join(', ')}"
+                    // Funzione Groovy locale (closure) con default arg
+                    def slug = { String s = env.APP_NAME -> s.toLowerCase().replaceAll('[^a-z0-9-]', '-') }
+                    // Ottengo lo short SHA dal repo
+                    def gitSha = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+                    // Costruisco un nome pacchetto leggibile
+                    env.PACKAGE_NAME = "${slug()}.${gitSha}.tar.gz"
+                    echo "PACKAGE_NAME = ${env.PACKAGE_NAME}"
                 }
             }
         }
 
         stage('Package') {
-            when {
-                // Esempio utile per estensioni: pacchetta solo se c'è un manifest
-                expression { fileExists('manifest.json') }
-            }
+            when { expression { fileExists('manifest.json') } }
             steps {
-                echo "Creo pacchetto tar.gz dell'estensione"
-                // escludo il file di output per evitare di auto-includerlo
-                sh 'tar --exclude=estensione.tar.gz -czf estensione.tar.gz .'
+                sh 'tar --exclude=${PACKAGE_NAME} -czf ${PACKAGE_NAME} .'
+            }
+        }
+
+        stage('Check size') {
+            when { expression { fileExists(env.PACKAGE_NAME ?: '') } }
+            steps {
+                sh 'ls -lh ${PACKAGE_NAME}'
             }
         }
     }
 
     post {
-        success {
-            echo "✅ Build #${env.BUILD_NUMBER} completata"
-        }
-        failure {
-            echo "❌ Build fallita"
+        always {
+            echo "Build #${env.BUILD_NUMBER} finita su ${env.NODE_NAME}"
         }
     }
 }
